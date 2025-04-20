@@ -1,21 +1,18 @@
 import os
-import json
-
 import streamlit as st
-from openai import OpenAI
-
+import openai
+from dotenv import load_dotenv
 
 #configuring openai-api key
-working_dir = os.path.dirname(os.path.realpath(__file__))
-config_data = json.load(open(os.path.join(working_dir, "config.json")))
-OPENAI_API_KEY = config_data["OPENAI_API_KEY"]
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+print(f"Loaded API Key: {OPENAI_API_KEY}")
 
 #initialise OpenAI client using new SDK
-client = OpenAI(api_key=OPENAI_API_KEY)
 
 #configuring streamlit page
 st.set_page_config(
-    page_title="GPT-4o Chat",
+    page_title="GPT-4o ChatBot",
     page_icon ="🗣️",
     layout = "centered"
 )
@@ -44,7 +41,7 @@ if user_prompt:
 
     #send user's message to gpt.4o and get a response
     try:
-        response = client.chat.completions.create(
+        response = openai.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
