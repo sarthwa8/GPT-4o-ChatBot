@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 #configuring openai-api key
 load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
+api_key = st.secrets["OPENAI_API_KEY"]
 
 #initialise OpenAI client using new SDK
 client = OpenAI(api_key=api_key)
